@@ -116,7 +116,7 @@ Dica: Aqui você pode utilizar a opção eager do TypeORM ou passar a opção re
 Em cada teste, tem uma breve descrição no que sua aplicação deve cumprir para que o teste passe.
 Para esse desafio, temos os seguintes testes:
 
-<p align="center;">:warning: <strong>Antes de rodar os testes, crie um banco de dados com o nome "gostack_desafio09_tests" para que todos os testes possam executar corretamente.</strong> :warning:</p>
+<p align="center">:warning: <strong>Antes de rodar os testes, crie um banco de dados com o nome "gostack_desafio09_tests" para que todos os testes possam executar corretamente.</strong> :warning:</p>
 
 - **`should be able to create a new customer`**: Para que esse teste passe, sua aplicação deve permitir que um cliente seja criado, e retorne um json com o cliente criado.
 
