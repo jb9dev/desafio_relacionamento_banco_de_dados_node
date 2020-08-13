@@ -33,21 +33,23 @@ Nesse desafio, você vai estar criando uma nova aplicação para aprender novas 
 Essa será uma aplicação que deve permitir a criação de clientes, produtos e pedidos, onde o cliente pode gerar novos pedidos de compra de certos produtos, como um pequeno e-commerce.
 
 ## Rotas da aplicação
-Agora que você já está com o template clonado e pronto para continuar, você deve verificar os arquivos da pasta src e completar onde não possui código com o código para atingir os objetivos de cada rota.
+Verifique os arquivos da pasta src e completar onde não possui código com o código para atingir os objetivos de cada rota.
 
-- **`POST /customers`**: A rota deve receber name e email dentro do corpo da requisição, sendo o name o nome do cliente a ser cadastrado. Ao cadastrar um novo cliente, ele deve ser armazenado dentro do seu banco de dados e deve ser retornado o cliente criado. Ao cadastrar no banco de dados, na tabela customers deverá possuir os campos name, email, created_at, updated_at.
-Dica: Antes de criar um novo cliente, sempre verifique se já existe um cliente com o mesmo e-mail. Caso ela exista, retorne um erro.
+- **`POST /customers`**: A rota deve receber `name` e `email` dentro do corpo da requisição, sendo o name o nome do cliente a ser cadastrado. Ao cadastrar um novo cliente, ele deve ser armazenado dentro do seu banco de dados e deve ser retornado o cliente criado. Ao cadastrar no banco de dados, na tabela customers deverá possuir os campos `name`, `email`, `created_at`, `updated_at`.
 
-- **`POST /products`**: Essa rota deve receber name, price e quantity dentro do corpo da requisição, sendo o name o nome do produto a ser cadastrado, price o valor unitário e quantity a quantidade existente em estoque do produto. Com esses dados devem ser criados no banco de dados um novo produto com os seguintes campos: name, price, quantity, created_at, updated_at.
-Dica 1: Antes de criar um novo produto, sempre verifique se já existe um produto com o mesmo nome. Caso ela exista, retorne um erro.
+**Dica**: Antes de criar um novo cliente, sempre verifique se já existe um cliente com o mesmo e-mail. Caso ela exista, retorne um erro.
 
-**Dica**: Para o campo price, você pode utilizar o type como decimal na sua migration, passando também as propriedades precision e scale.
+- **`POST /products`**: Essa rota deve receber name, `price` e `quantity` dentro do corpo da requisição, sendo o name o nome do produto a ser cadastrado, price o valor unitário e quantity a quantidade existente em estoque do produto. Com esses dados devem ser criados no banco de dados um novo produto com os seguintes campos: `name`, `price`, `quantity`, `created_at`, `updated_at`.
 
-- **`POST /orders/`**: Nessa rota você deve receber no corpo da requisição o customer_id e um array de products, contendo o id e a quantity que você deseja adicionar a um novo pedido. Aqui você deve cadastrar na tabela order um novo pedido, que estará relacionado ao customer_id informado, created_at e updated_at . Já na tabela orders_products, você deve armazenar o product_id, order_id, price e quantity, created_at e updated_at.
+**Dica 1**: Antes de criar um novo produto, sempre verifique se já existe um produto com o mesmo nome. Caso ela exista, retorne um erro.
 
-**Dica 1**: Nessa funcionalidade, você precisará fazer um relacionamento de N:N entre produtos e pedidos, onde vários produtos podem estar em vários pedidos, com isso você deve sempre armazenar o valor do produto no momento da compra e a quantidade pedida na tabela pivô com nome de orders_products, essa tabela vai ter os campos id, order_id, product_id, quantity, price, created_at e updated_at. Para esse tipo de relacionamento, você pode verificar na documentação do TypeORM sobre como fazer relacionamento muitos-para-muitos com propriedades customizadas.
+**Dica 2**: Para o campo price, você pode utilizar o type como decimal na sua migration, passando também as propriedades precision e scale.
 
-**Dica 2**: Além disso, você pode também utilizar o método de cascade do TypeORM, que irá adicionar na sua tabela order_products os produtos que você passar por parametro para a entidade de orders automaticamente, você pode saber mais sobre isso aqui: Opção de cascade
+- **`POST /orders/`**: Nessa rota você deve receber no corpo da requisição o customer_id e um array de products, contendo o id e a quantity que você deseja adicionar a um novo pedido. Aqui você deve cadastrar na tabela order um novo pedido, que estará relacionado ao `customer_id` informado, `created_at` e `updated_at` . Já na tabela `orders_products`, você deve armazenar o `product_id`, `order_id`, `price` e `quantity`, `created_at` e `updated_at`.
+
+**Dica 1**: Nessa funcionalidade, você precisará fazer um relacionamento de N:N entre produtos e pedidos, onde vários produtos podem estar em vários pedidos, com isso você deve sempre armazenar o valor do produto no momento da compra e a quantidade pedida na tabela pivô com nome de `orders_products`, essa tabela vai ter os campos `id`, `order_id`, `product_id`, `quantity`, `price`, `created_at` e `updated_at`. Para esse tipo de relacionamento, você pode verificar na documentação do TypeORM sobre [como fazer relacionamento muitos-para-muitos com propriedades customizadas](https://github.com/typeorm/typeorm/blob/master/docs/many-to-many-relations.md#many-to-many-relations-with-custom-properties).
+
+**Dica 2**: Além disso, você pode também utilizar o método de cascade do TypeORM, que irá adicionar na sua tabela `order_products` os produtos que você passar por parametro para a entidade de orders automaticamente, você pode saber mais sobre isso aqui: [Opção de cascade](https://github.com/typeorm/typeorm/blob/master/docs/relations.md#cascade-options)
 
 **Dica 3**: A sua requisição do insomnia deve enviar um JSON com o formato parecido com esse:
 
@@ -103,8 +105,9 @@ Dica 1: Antes de criar um novo produto, sempre verifique se já existe um produt
   ]
 }
 ```
-- **`GET /orders/:id`**: Essa rota deve retornar as informações de um pedido específico, com todas as informações que podem ser recuperadas através dos relacionamentos entre a tabela orders, customers e orders_products.
-Dica: Aqui você pode utilizar a opção eager do TypeORM ou passar a opção relations para o método findOne do TypeORM, informando os nomes das tabelas que você deseja buscar o relacionamento.
+- **`GET /orders/:id`**: Essa rota deve retornar as informações de um pedido específico, com todas as informações que podem ser recuperadas através dos relacionamentos entre a tabela orders, `customers` e `orders_products`.
+
+**Dica**: Aqui você pode utilizar a opção eager do TypeORM ou passar a opção relations para o método findOne do TypeORM, informando os nomes das tabelas que você deseja buscar o relacionamento.
 
 ## Links úteis
 - [Cascade option TypeORM](https://github.com/typeorm/typeorm/blob/master/docs/relations.md#cascade-options)
