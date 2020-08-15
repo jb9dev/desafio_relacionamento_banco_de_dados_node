@@ -33,10 +33,14 @@ class CreateOrderService {
   public async execute({ customer_id, products }: IRequest): Promise<Order> {
     const customer = await this.customersRepository.findById(customer_id);
     const findProducts = await this.productsRepository.findAllById(products);
-    const orderProducts = findProducts.map(foundProduct => {
+    const order_products = findProducts.map(foundProduct => {
       const { id, quantity } = products.find(
         parsedProduct => parsedProduct.id === foundProduct.id,
       ) as IProduct;
+
+      if (quantity > foundProduct.quantity) {
+        throw new AppError("There isn't enough product quantity");
+      }
 
       return {
         product_id: id,
@@ -53,9 +57,28 @@ class CreateOrderService {
       throw new AppError('No product found with these ids');
     }
 
+    if (products.length !== findProducts.length) {
+      throw new AppError(
+        'There are some invalid products, please verify the products ids',
+      );
+    }
+
     const order = await this.ordersRepository.create({
       customer,
-      products: orderProducts,
+      products: order_products,
+    });
+
+    if (order) {
+      await this.productsRepository.updateQuantity(products);
+    }
+
+    const orderCreated = order;
+
+    delete order.customer_id;
+
+    Object.assign(orderCreated, {
+      customer,
+      order_products,
     });
 
     return order;
