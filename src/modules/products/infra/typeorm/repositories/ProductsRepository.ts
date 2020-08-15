@@ -55,7 +55,7 @@ class ProductsRepository implements IProductsRepository {
 
       return {
         ...foundProduct,
-        quantity: product.quantity,
+        quantity: foundProduct.quantity - product.quantity,
       };
     });
 
